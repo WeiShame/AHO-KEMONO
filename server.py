@@ -64,9 +64,9 @@ class linebotServer():
             
             if command[0] == "註冊":
                 if len(command) == 3 and command[2]== "Iam管理者" :
-                    ret = db.addPermissions(event.source.user_id, "管理員")
+                    ret = db.addPermissions(event.source.user_id, command[1],"管理員")
                 elif len(command) == 2:
-                    ret = db.addPermissions(event.source.user_id,"一般")
+                    ret = db.addPermissions(event.source.user_id, command[1],"一般")
                 else:
                     ret="指令錯誤，請檢查!"
                 message = TextSendMessage(text = ret)
@@ -75,9 +75,12 @@ class linebotServer():
                 
                 ret = db.queryPermissions(event.source.user_id)
                 if ret is not None:
-                    tempstr= "名稱: %s, 權限: %s".format(ret[0], ret[1])        
-                else:
-                    message = TextSendMessage(text = tempstr)     
+                    tempstr= "名稱: {}, 權限: {}".format(ret[0], ret[1])        
+
+                message = TextSendMessage(text = tempstr)
+            elif command[0] == "建立user表":
+                ret = db.createUserTable()    
+                message = TextSendMessage(text = ret)     
             else:
                 # Error command said same text
                 message = TextSendMessage(text=event.message.text)

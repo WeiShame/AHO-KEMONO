@@ -33,14 +33,15 @@ class DataBase():
             )''') 
         print ("Table 建立成功")
         self.conn.commit()
+        return "建立成功"
 
     #-------------------------------------------------------------------------
     def queryPermissions(self, userid):
         sql="""SELECT u.NAME, u.PERMISSIONS FROM USERS u
-        WHERE USER_ID = ?""".format(userid)
+        WHERE USER_ID = ?"""
         print(userid)
         print(sql)
-        results = self.c.execute(sql)
+        results = self.c.execute(sql,(userid,))
         ret = results.fetchone()
         return ret
         # if ret is not None:
@@ -51,8 +52,8 @@ class DataBase():
     def addPermissions(self, userid, name, permissions):
         if self.queryPermissions(userid) is None:
             sql="""INSERT INTO USERS(USER_ID, NAME, PERMISSIONS)
-                VALUES (?, ?, ?)""".format(userid,name, permissions)
-            self.c.execute(sql)
+                VALUES (?, ?, ?)"""
+            self.c.execute(sql,(userid, name, permissions))
             self.conn.commit()
             return "註冊成功!"
         else:
