@@ -26,7 +26,7 @@ class DataBase():
         print("close db connection")
     #-------------------------------------------------------------------------
     def createUserTable(self):
-        self.c.execute('''CREATE TABLE USERS(
+        self.c.execute('''CREATE TABLE if not exists USERS(
             USER_ID TEXT PRIMARY KEY     NOT NULL,
             NAME           TEXT    NOT NULL,
             PERMISSIONS            CHAR(32)     NOT NULL
