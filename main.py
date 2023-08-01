@@ -19,7 +19,7 @@ import server
 #==================================================================================================
 if __name__ == "__main__":
     
-    port = 8080
+    port = 443
     myLinebotServer = server.linebotServer()
     print("Start line-bot server on Port: ", port)
-    myLinebotServer.start('0.0.0.0', port)
+    myLinebotServer.start('0.0.0.0', port, cert=True)

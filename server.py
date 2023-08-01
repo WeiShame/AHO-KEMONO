@@ -48,9 +48,11 @@ class linebotServer():
         return 'OK'
 
     #-----------------------------------------------------------------------------
-    def start(self, host, port):
-        self.server.run(host, port)
-
+    def start(self, host, port, cert=False):
+        if cert:
+            self.server.run(host, port)
+        else:
+            self.server.run(host, port, ssl_context=('./certifications/ca_bundle.crt', './certifications/certificate.crt', './certifications/private.key'))
     #-----------------------------------------------------------------------------
     def processMessage(self, event):
         print(event)
